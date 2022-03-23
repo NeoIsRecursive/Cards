@@ -1,16 +1,4 @@
-﻿var deck = new Deck();
+﻿var Player = new Player("Neo");
+var Dealer = new Dealer();
 
-
-foreach (var card in deck.Cards)
-{
-    Console.WriteLine($"{card.Type} : {card.Color}" );
-}
-Console.WriteLine(deck.Cards.Count());
-
-Console.WriteLine(deck.Draw().Type);
-
-foreach (var card in deck.Cards)
-{
-    Console.WriteLine($"{card.Type} : {card.Color}");
-}
-Console.WriteLine(deck.Cards.Count());
+Player.RecieveCard(Dealer.Deal());

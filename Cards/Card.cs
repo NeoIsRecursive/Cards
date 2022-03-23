@@ -3,7 +3,7 @@
     public char Type { get; }
     public string Color { get; }
     //if fat make ace value 1
-    int Value { get; }
+    public int Value { get; set; }
 
 
     public Card(char type, int value, string color)
