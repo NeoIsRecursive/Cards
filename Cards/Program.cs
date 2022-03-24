@@ -1,4 +1,13 @@
-﻿var Player = new Player("Neo");
-var Dealer = new Dealer();
+﻿var players = new List<Player>
+    {
+        new Player("Neo"),
+        new Player("Patrik")
+    };
 
-Player.RecieveCard(Dealer.Deal());
+var dealer = new Dealer();
+
+var blackjack = new Blackjack(dealer, players);
+
+blackjack.PlayerTurns();
+
+
