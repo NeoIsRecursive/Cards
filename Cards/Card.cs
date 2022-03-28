@@ -2,7 +2,6 @@
 {
     public char Type { get; }
     public string Color { get; }
-    //if fat make ace value 1
     public int Value { get; set; }
 
 

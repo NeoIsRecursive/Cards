@@ -5,9 +5,6 @@
     };
 
 var dealer = new Dealer();
-
 var blackjack = new Blackjack(dealer, players);
 
-blackjack.PlayerTurns();
-
-
+blackjack.Play();

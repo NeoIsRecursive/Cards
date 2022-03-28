@@ -7,14 +7,9 @@
 
     private Deck deck = new Deck();
 
-    public void Deal(BasePlayer player)
+    public void Deal(BasePlayer player, bool silent = false)
     {
-         player.RecieveCard(this.deck.Draw());
-    }
-
-    public bool MustStay()
-    {
-        return this.Total >= 17;
+         player.RecieveCard(this.deck.Draw(), silent);
     }
 }
 
