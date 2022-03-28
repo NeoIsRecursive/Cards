@@ -55,11 +55,15 @@
 
     public void HandleAce(int newCard)
     {
-        foreach(var card in this.Hand)
+        var totalWithNewCard = this.Total + newCard;
+        foreach (var card in this.Hand)
         {
-            if (card.Type == 'A' && this.Total + newCard > 21)
+            if (card.Type == 'A' && totalWithNewCard > 21)
             {
-                card.Value = 1; 
+                if (card.Value == 1) continue;
+
+                card.Value = 1;
+                totalWithNewCard -= 10;
             }
         }
     }
