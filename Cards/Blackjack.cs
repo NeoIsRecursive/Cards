@@ -23,7 +23,7 @@ public class Blackjack
             }
 
             //player.RecieveCard(new Card('A', 11, "spade"), true);
-            //player.RecieveCard(new Card('5', 5, "spade"), true);
+            //player.RecieveCard(new Card('A', 11, "hearts"), true);
         }
 
         this.CardsOnTable();
@@ -33,9 +33,10 @@ public class Blackjack
     {
         while (!player.Bust && !player.Stay)
         {
+            Console.WriteLine($"you: {player.GetHand()}");
             if (!player.Bust)
             {
-                Console.WriteLine("want to stay?");
+                Console.Write("want to stay? ");
                 player.WantsToStay(Console.ReadLine());
             }
 
@@ -56,7 +57,22 @@ public class Blackjack
                 Console.WriteLine($"{player.Name}'s bust!");
             }
         }
+    }
 
+    public void DealerTurns()
+    {
+        Console.WriteLine("Ready for dealers turn? press any key");
+        Console.ReadKey();
+        Console.Clear();
+        while (_dealer.Total < 17)
+        {
+            _dealer.Deal(_dealer);
+
+            if (_dealer.Total < 17)
+            {
+                Thread.Sleep(2000);
+            }
+        }
     }
 
     public void PlayerTurns()
@@ -66,7 +82,7 @@ public class Blackjack
             Console.Write($"ready for {player.Name}s turn? press any button to start turn");
             Console.ReadKey();
             Console.Clear();
-            this.CardsOnTable();
+            this.CardsOnTable(player);
 
             if (player.Total == 21)
             {
@@ -80,12 +96,15 @@ public class Blackjack
         }
     }
 
-    public void CardsOnTable()
+    public void CardsOnTable(Player ignore = null)
     {
         Console.WriteLine($"{_dealer.Name}: {_dealer.GetHand()}");
         foreach (var player in _players)
         {
-            Console.WriteLine($"{player.Name}: {player.GetHand()}");
+            if(player != ignore)
+            {
+                Console.WriteLine($"{player.Name}: {player.GetHand()}");
+            }
         }
     }
 
@@ -93,7 +112,7 @@ public class Blackjack
     {
         this.PlayerTurns();
         this.DealerTurns();
-
+        this.CardsOnTable();
         foreach (var player in _players)
         {
             bool winner = true;
@@ -115,16 +134,6 @@ public class Blackjack
             {
                 Console.WriteLine($"Dealer won over {player.Name} :(");
             }
-        }
-    }
-
-    public void DealerTurns()
-    {
-        while(_dealer.Total < 17)
-        {
-            _dealer.Deal(_dealer);
-
-            Console.WriteLine($"{_dealer.Total}");
         }
     }
 }
