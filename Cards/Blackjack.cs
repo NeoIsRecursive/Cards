@@ -24,7 +24,31 @@ public class Blackjack
         }
     }
 
-	public void PlayerTurns()
+    public void Turn(Dealer dealer, Player player)
+    {
+        while (!player.Bust && !player.Stay)
+        {
+            if (!player.Bust)
+            {
+                Console.WriteLine("want to stay?");
+                player.WantsToStay(Console.ReadLine());
+            }
+
+            if (!player.Bust && !player.Stay)
+            {
+                dealer.Deal(player);
+                Console.WriteLine($"Total: {player.Total}");
+            }
+
+            if (player.Bust)
+            {
+                Console.WriteLine($"{player.Name}'s bust!");
+            }
+        }
+
+    }
+
+    public void PlayerTurns()
     {
         foreach (var player in _players)
         {
@@ -32,7 +56,7 @@ public class Blackjack
 			Console.ReadKey();
 			Console.Clear();
             this.CardsOnTable();
-			_dealer.Turn(player);
+			this.Turn(this._dealer,player);
 
         }
     }
