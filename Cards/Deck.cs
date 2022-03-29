@@ -42,24 +42,32 @@ public class Deck
         "clubs",
         "diamonds"
     };
-
-    public Deck()
+    int decks;
+    public Deck(int decks)
 	{
-        this.Cards = this.Fill();
-        this.Cards = this.Shuffle();
+        if (decks < 1) decks = 1;
+        this.decks = decks;
 	}
-
-	public List<Card> Fill()
+    public void PrepareDeck()
+    {
+        this.Cards = this.Fill(decks);
+        this.Cards = this.Shuffle();
+    }
+	public List<Card> Fill(int decks)
     {
         var cards = new List<Card>();
-        foreach (var color in cardColors)
+        for (int i = 0; i < decks; i++)
         {
-            var j = 0;
-            foreach (var type  in cardTypes)
+            foreach (var color in cardColors)
             {
-                cards.Add(new Card(type, cardValues[j++], color));
+                var j = 0;
+                foreach (var type in cardTypes)
+                {
+                    cards.Add(new Card(type, cardValues[j++], color));
+                }
             }
         }
+        Console.WriteLine("there are " +cards.Count() + " cards in the deck");
         return cards;
     }
 

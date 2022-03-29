@@ -8,13 +8,22 @@ public class Blackjack
     {
         this._dealer = dealer;
         this._players = players;
-        this._dealer.Deal(_dealer, true);
-
-        this.Init();
     }
 
-    public void Init()
+    public void GamePreparations()
     {
+        _dealer.Reset();
+        _dealer.PrepareDeck();
+        foreach (var player in this._players)
+        {
+            player.Reset();
+        }
+    }
+
+    public void FirstDeals()
+    {
+        this._dealer.Deal(_dealer, true);
+
         foreach (var player in this._players)
         {
             for (int i = 0; i < 2; i++)
@@ -23,6 +32,8 @@ public class Blackjack
             }
 
             //player.RecieveCard(new Card('A', 11, "spade"), true);
+            //player.RecieveCard(new Card('A', 11, "hearts"), true);
+            //player.RecieveCard(new Card('A', 11, "hearts"), true);
             //player.RecieveCard(new Card('A', 11, "hearts"), true);
         }
 
@@ -36,7 +47,7 @@ public class Blackjack
             Console.WriteLine($"you: {player.GetHand()}");
             if (!player.Bust)
             {
-                Console.Write("want to stay? ");
+                Console.Write("want to stay?[y/n] ");
                 player.WantsToStay(Console.ReadLine());
             }
 
@@ -47,7 +58,14 @@ public class Blackjack
                 {
                     Console.WriteLine($"{player.Name}, winner winner chicken dinner!");
                     break;
-                } else {
+                }
+                else if (player.Hand.Count >= 5 && !player.Bust)
+                {
+                    Console.WriteLine($"{player.Name}, winner winner chicken dinner! 5 cards");
+                    break;
+                }
+                else
+                {
                     Console.WriteLine($"Total: {player.Total}");
                 }
             }
@@ -59,7 +77,7 @@ public class Blackjack
         }
     }
 
-    public void DealerTurns()
+    public void DealerTurn()
     {
         Console.WriteLine("Ready for dealers turn? press any key");
         Console.ReadKey();
@@ -110,8 +128,10 @@ public class Blackjack
 
     public void Play()
     {
+        this.GamePreparations();
+        this.FirstDeals();
         this.PlayerTurns();
-        this.DealerTurns();
+        this.DealerTurn();
         this.CardsOnTable();
         foreach (var player in _players)
         {
@@ -125,6 +145,11 @@ public class Blackjack
             if (player.Total < _dealer.Total && !_dealer.Bust)
             {
                 winner = false;
+            }
+
+            if(player.Hand.Count >= 5 && !player.Bust)
+            {
+                winner = true;
             }
 
             if (winner)

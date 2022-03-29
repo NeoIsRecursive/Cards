@@ -67,4 +67,11 @@
             }
         }
     }
+
+    public void Reset()
+    {
+        this.Hand.Clear();
+        this.Stay = false;
+        this.Bust = false;
+    }
 }
