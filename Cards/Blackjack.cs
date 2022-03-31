@@ -84,12 +84,8 @@ public class Blackjack
         Console.Clear();
         while (_dealer.Total < 17)
         {
+            Thread.Sleep(1500);
             _dealer.Deal(_dealer);
-
-            if (_dealer.Total < 17)
-            {
-                Thread.Sleep(2000);
-            }
         }
     }
 
@@ -132,6 +128,7 @@ public class Blackjack
         this.FirstDeals();
         this.PlayerTurns();
         this.DealerTurn();
+        //Thread.Sleep(1500);
         this.CardsOnTable();
         foreach (var player in _players)
         {
